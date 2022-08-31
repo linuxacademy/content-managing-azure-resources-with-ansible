@@ -1,0 +1,8 @@
+---
+- name: Create RG Using Full Namespace in Task
+  hosts: localhost
+  tasks:
+    - name: Create Resource Group
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "awesomeRG1"
+        location: "eastus"

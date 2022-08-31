@@ -1,0 +1,10 @@
+---
+- name: Create RG Using Full Namespace in Collections Element
+  hosts: localhost
+  collections:
+    - azure.azcollection
+  tasks:
+    - name: Create Resource Group
+    - azure_rm_resourcegroup:
+        name: "awesomeRG2"
+        location: "eastus"
