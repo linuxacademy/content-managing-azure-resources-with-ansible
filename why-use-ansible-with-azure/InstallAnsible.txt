@@ -1,0 +1,33 @@
+# Ansible installation instructions for RHEL and CentOS
+# ---
+
+# Update packages
+sudo yum update -y
+
+# Install Python 3 and pip.
+sudo yum install -y python3-pip
+
+# Upgrade pip3.
+sudo pip3 install --upgrade pip
+
+# Install Ansible.
+pip3 install ansible
+
+# If installing Ansible 2.9, use the following command:
+# pip3 install "ansible==2.9.17"
+
+
+# ---
+
+
+# Ansible Azure installation instructions for RHEL and CentOS
+# ---
+
+# If installing Ansible 2.9, use the following command and skip the commands that follow: 
+# pip3 install ansible[azure]
+
+# Install the Ansible az collection from Ansible Galaxy for Ansible version 2.10x or greater.
+ansible-galaxy collection install azure.azcollection
+
+# Install Ansible Azure requirements for Ansible version 2.10x or greater
+sudo pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
