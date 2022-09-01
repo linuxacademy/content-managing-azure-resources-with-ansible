@@ -5,6 +5,6 @@
     - azure.azcollection
   tasks:
     - name: Create Resource Group
-    - azure_rm_resourcegroup:
+      azure_rm_resourcegroup:
         name: "awesomeRG2"
         location: "eastus"
