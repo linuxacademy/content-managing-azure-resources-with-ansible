@@ -1,0 +1,30 @@
+---
+- name: Create Azure VM's with defaults
+  hosts: localhost
+  connection: local
+  
+  collections:
+    - azure.azcollection
+  
+  vars_prompt:
+    - name: password
+      prompt: "Enter local administrator password"
+  
+  vars:
+    resource_group_name: awesomerg
+    vm_name: awesomevm2
+  
+  tasks:    
+    - name: Create virtual machine
+      azure_rm_virtualmachine:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ vm_name }}"
+        vm_size: Standard_DS1_v2
+        managed_disk_type: Standard_LRS
+        admin_username: awesomeadmin
+        admin_password: "{{ password }}"
+        image:
+          offer: CentOS
+          publisher: OpenLogic
+          sku: '7.5'
+          version: latest
