@@ -1,0 +1,8 @@
+# Azure CLI command to display the Tenant ID
+# ---
+az account show --query '{tenantId:tenantId}'
+
+# Azure CLI command to display the Object ID
+# Replace <SP Name> with the Azure Service Principal name used to authenticate Ansibe with Azure
+# ---
+az ad sp list --display-name <SP Name> --query {objectID:[0].id}
