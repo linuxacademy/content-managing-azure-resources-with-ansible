@@ -1,0 +1,56 @@
+---
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - azure.azcollection
+
+  vars:
+    secret_name: localAdminPassword1
+    vault_name: awesomekeyvault384uqefng
+    kv_resource_group_name: awesomekvrg
+    vm_resource_group_name: awesomerg
+    vm_name: awesomevm3
+
+  tasks:
+
+  - name: Get Key Vault by name
+    azure_rm_keyvault_info:
+      resource_group: "{{ kv_resource_group_name }}"
+      name: "{{ vault_name }}"
+    register: keyvault
+
+  - name: set KeyVault uri fact
+    set_fact: keyvaulturi="{{ keyvault | json_query('keyvaults[0].vault_uri')}}"
+
+  - debug:
+      msg: "{{ keyvaulturi }}"
+
+  - name: Get latest version of a secret
+    azure_rm_keyvaultsecret_info:
+      vault_uri: "{{ keyvaulturi }}"
+      name: "{{ secret_name }}"
+    register: kvSecret
+
+  - debug:
+      msg: "{{ kvSecret  }}"
+
+  - name: Set secret fact
+    set_fact: secret_value="{{ kvSecret | json_query('secrets[0].secret')}}"
+
+  - debug:
+      msg: "{{ secret_value  }}"
+
+  - name: Create VM with defaults
+    azure_rm_virtualmachine:
+      resource_group: "{{ vm_resource_group_name }}"
+      name: "{{ vm_name }}"
+      vm_size: Standard_DS1_v2
+      admin_username: awesomeadmin
+      admin_password: "{{ secret_value }}"
+      image:
+          offer: CentOS
+          publisher: OpenLogic
+          sku: '7.5'
+          version: latest

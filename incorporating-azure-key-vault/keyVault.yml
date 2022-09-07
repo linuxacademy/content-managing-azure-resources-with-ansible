@@ -1,0 +1,36 @@
+---
+- name: Create an Azure Key Vault
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+    - name: tenant_id
+      prompt: "Enter Tenant ID"
+
+  vars:
+    object_id: 1ed48be0-2a39-404e-acfa-0165bdab7e02
+    vault_name: awesomekeyvault384uqefng
+    kv_resource_group_name: awesomekvrg
+
+  tasks:
+  - name: Create resource group 
+    azure_rm_resourcegroup:
+      name: "{{ kv_resource_group_name }}"
+      location: eastus
+
+  - name: Create instance of Key Vault
+    azure_rm_keyvault:
+      resource_group: "{{ kv_resource_group_name }}"
+      vault_name: "{{ vault_name }}"
+      enabled_for_deployment: yes
+      vault_tenant: "{{ tenant_id }}"
+      sku:
+        name: standard
+      access_policies:
+        - tenant_id: "{{ tenant_id }}"
+          object_id: "{{ object_id }}"
+          secrets:
+            - get
+            - list
+            - set
+            - delete
