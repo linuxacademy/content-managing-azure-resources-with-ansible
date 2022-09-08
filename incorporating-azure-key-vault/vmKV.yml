@@ -8,7 +8,8 @@
 
   vars:
     secret_name: localAdminPassword1
-    vault_name: awesomekeyvault384uqefng
+    # provide unique name for key vault
+    vault_name: <vault name>
     kv_resource_group_name: awesomekvrg
     vm_resource_group_name: awesomerg
     vm_name: awesomevm3

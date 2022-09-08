@@ -8,8 +8,10 @@
       prompt: "Enter Tenant ID"
 
   vars:
-    object_id: 1ed48be0-2a39-404e-acfa-0165bdab7e02
-    vault_name: awesomekeyvault384uqefng
+    # provide object ID
+    object_id: <object id>
+    # provide unique name for key vault
+    vault_name: <vault name>
     kv_resource_group_name: awesomekvrg
 
   tasks:
