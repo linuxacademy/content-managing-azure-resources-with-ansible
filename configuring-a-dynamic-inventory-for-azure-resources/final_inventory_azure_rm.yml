@@ -1,0 +1,10 @@
+plugin: azure.azcollection.azure_rm
+include_vm_resource_groups:
+  - awesomerg
+auth_source: auto
+plain_host_names: yes
+conditional_groups:
+  east: "'eastus' in location"
+  west: "'westus' in location"
+keyed_groups:
+  - key: tags.env
