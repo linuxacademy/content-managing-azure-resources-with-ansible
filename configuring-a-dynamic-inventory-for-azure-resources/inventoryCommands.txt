@@ -1,0 +1,13 @@
+# Query list of hosts
+# ---
+ansible-inventory -i <inventory file name ending with "azure_rm.yml"> --graph
+
+
+# Display host variables
+# ---
+ansible-inventory -i <inventory file name ending with "azure_rm.yml"> --list
+
+
+# Deploy playbook using Azure Dynamic Inventory plugin
+# ---
+ansible-playbook <playbook name>.yml -i <inventory file name ending with "azure_rm.yml"> 
